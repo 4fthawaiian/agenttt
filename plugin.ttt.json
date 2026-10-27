@@ -1,0 +1,29 @@
+{
+  "name": "agenttt",
+  "displayName": "agenttt",
+  "description": "ACP agent client for TTT \u2014 streaming agent conversations, terminal sessions, and editor-aware context. Ships with Devin as the default agent; retarget via the AGENT table.",
+  "version": "0.1.0",
+  "author": "bem",
+  "entry": "init.lua",
+  "api": 1,
+  "permissions": {
+    "panel.sidebar": true,
+    "commands": true,
+    "keybindings": true,
+    "editor.read": true,
+    "terminal.control": true,
+    "terminal.read": true,
+    "system.exec": [
+      "devin"
+    ],
+    "settings": true,
+    "settings_keys": [
+      "devin.*"
+    ],
+    "storage": true,
+    "panel.bottom": true,
+    "fs.read": [
+      "{workspace}"
+    ]
+  }
+}
