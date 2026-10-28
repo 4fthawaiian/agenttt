@@ -1,11 +1,11 @@
 # agenttt
 
-Agent in TTT — an ACP (Agent Client Protocol) client plugin: streaming
+Agent in [TTT](https://github.com/eugenioenko/ttt) — an ACP (Agent Client Protocol) client plugin for the [terminal text editor](https://tttedit.dev): streaming
 agent conversations in a bottom panel, interactive terminal sessions,
 and editor-aware context. Ships with Devin as the default agent;
 retarget at any ACP-capable CLI via the AGENT table in init.lua.
 
-Requires the agent binary on PATH and a TTT build that includes
+Requires the agent binary on PATH and a [TTT](https://github.com/eugenioenko/ttt) build that includes
 `ttt.terminal` and `ttt.system`'s `spawn` (post-v1.8.0 main).
 
 ## Screenshots
@@ -20,7 +20,7 @@ Requires the agent binary on PATH and a TTT build that includes
 git clone https://github.com/4fthawaiian/agenttt ~/.config/ttt/plugins/agenttt
 ```
 
-1. **ttt ≥ the release carrying `sys.spawn`** — plugin API v2. Builds from
+1. **[ttt](https://github.com/eugenioenko/ttt) ≥ the release carrying [`sys.spawn`](https://github.com/eugenioenko/ttt/pull/1232)** — plugin API v2. Builds from
    `main` today; the next tagged release will qualify. Older versions
    refuse the plugin cleanly (`"api": 2` in the manifest).
 2. **An agent binary on PATH** — `devin` by default
