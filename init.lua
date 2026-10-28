@@ -275,7 +275,7 @@ local function ask_dialog(title, placeholder, on_submit)
         autofocus = true,
         wrap = true,
         max_rows = 3,
-        placeholder = placeholder or "Ask Devin…",
+        placeholder = placeholder or ("Ask " .. AGENT.label .. "…"),
         on_change = function(t) text = t end,
         on_submit = function(t)
           ttt.close_dialog()
@@ -392,7 +392,7 @@ end
 
 local function cmd_quick_ask()
   local ctx = selection_ctx()
-  local placeholder = ctx and "Ask about the selection…" or "Ask Devin…"
+  local placeholder = ctx and "Ask about the selection…" or ("Ask " .. AGENT.label .. "…")
   ask_dialog(AGENT.label .. " — Quick Ask", placeholder, function(q)
     quick_ask(with_context(q))
   end)
@@ -449,7 +449,7 @@ local function cmd_doctor()
     for line in (out .. "\n"):gmatch("([^\n]*)\n") do
       lines[#lines + 1] = line
     end
-    ttt.open_readonly("Devin Doctor", lines)
+    ttt.open_readonly(AGENT.label .. " Doctor", lines)
   end)
 end
 
@@ -805,7 +805,7 @@ local function acp_pump()
     local prompt = acp.pending_prompt
     acp.pending_prompt = nil
     acp_status("prompting")
-    acp.conv = acp.conv .. "**Devin:** "
+    acp.conv = acp.conv .. "**" .. AGENT.label .. ":** "
     acp_send("session/prompt", {
       sessionId = acp.session_id,
       prompt = { { type = "text", text = prompt } },
@@ -879,7 +879,7 @@ local function render_panel(panel)
       })
 
       p:input({
-        placeholder = "Ask Devin (ACP)…",
+        placeholder = "Ask " .. AGENT.label .. " (ACP)…",
         clear_on_submit = true,
         on_submit = function(q) acp_ask(q) end,
       })
@@ -985,7 +985,7 @@ editor.register_context_menu(function(line, col, word)
       }
     end
     items[#items + 1] = {
-      label = "Ask Devin about selection…",
+      label = "Ask " .. AGENT.label .. " about selection…",
       on_select = function()
         ask_dialog(AGENT.label .. " — Ask About Selection", "What about this code?", function(q)
           acp_ask(q, seeded_prompt(ctx, q))
@@ -1009,7 +1009,7 @@ editor.register_context_menu(function(line, col, word)
   elseif word and word ~= "" then
     local path = file_ctx()
     items[#items + 1] = {
-      label = "Ask Devin about '" .. word .. "'",
+      label = "Ask " .. AGENT.label .. " about '" .. word .. "'",
       on_select = function()
         ask_dialog(AGENT.label .. " — Ask", "Ask about '" .. word .. "'…", function(q)
           local where = path and string.format("In `%s` around line %d, ", path, line) or ""
@@ -1020,7 +1020,7 @@ editor.register_context_menu(function(line, col, word)
   end
   if #items > 0 then
     items[#items + 1] = { separator = true }
-    items[#items + 1] = { label = "Devin: New session", on_select = new_session }
+    items[#items + 1] = { label = AGENT.label .. ": New session", on_select = new_session }
   end
   return items
 end)
@@ -1044,7 +1044,7 @@ ttt.register({
           local text = plan_md() .. acp.conv
           if text == "" then
             p:label({ text = AGENT.label .. " ACP — " .. acp.status ..
-              " — ask with 'Devin: ACP Ask' or the sidebar input", style = "muted" })
+              " — ask with '" .. AGENT.label .. ": ACP Ask' or the sidebar input", style = "muted" })
           else
             p:markdown({ text = text, follow = true })
           end
@@ -1087,7 +1087,7 @@ ttt.register({
     { id = PLUGIN_ID .. ".send",          title = AGENT.label .. ": Send Message to Session",  handler = cmd_send },
     { id = PLUGIN_ID .. ".doctor",        title = AGENT.label .. ": Doctor",                   handler = cmd_doctor },
     { id = PLUGIN_ID .. ".acp_ask",       title = AGENT.label .. ": ACP Ask",                  handler = function()
-      ask_dialog(AGENT.label .. " — ACP Ask", "Ask Devin…", acp_ask)
+      ask_dialog(AGENT.label .. " — ACP Ask", ("Ask " .. AGENT.label .. "…"), acp_ask)
     end },
     { id = PLUGIN_ID .. ".acp_stop",      title = AGENT.label .. ": Stop Agent",               handler = acp_cancel },
     { id = PLUGIN_ID .. ".review",        title = AGENT.label .. ": Review Changes",           handler = function()

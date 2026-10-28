@@ -8,6 +8,41 @@ retarget at any ACP-capable CLI via the AGENT table in init.lua.
 Requires the agent binary on PATH and a TTT build that includes
 `ttt.terminal` and `ttt.system`'s `spawn` (post-v1.8.0 main).
 
+## Setup
+
+```bash
+git clone https://github.com/4fthawaiian/agenttt ~/.config/ttt/plugins/agenttt
+```
+
+1. **ttt ≥ the release carrying `sys.spawn`** — plugin API v2. Builds from
+   `main` today; the next tagged release will qualify. Older versions
+   refuse the plugin cleanly (`"api": 2` in the manifest).
+2. **An agent binary on PATH** — `devin` by default
+   (`curl -fsSL https://cli.devin.ai/install.sh | sh` or your package
+   manager). Verified: `devin acp`, `opencode acp`.
+3. Launch ttt, click **Allow** on the permission dialog (sidebar, bottom
+   panel, `system.exec` for the agent binary, workspace `fs.read` for
+   @-mentions, etc.). Done — look for the `agenttt` sidebar tab and the
+   status bar item.
+
+### Recommended settings (`~/.config/ttt/settings.json`)
+
+```json
+{ "devin": { "model": "swe-2-high", "notify_done": true } }
+```
+
+- `devin.model` — passed as `--model` to sessions and quick asks.
+  `swe-2-high` is free-tier and ignores weekly quota exhaustion.
+- `devin.notify_done` — notify when a response completes (default `true`).
+
+### Using a different agent
+
+Every agent-specific value lives in the `AGENT` table at the top of
+`init.lua` — binary, subcommand args, display name, settings namespace.
+To run a different ACP agent (e.g. opencode), point `cmd`/`acp_args` at
+it and add the binary to `system.exec` in `plugin.ttt.json`. Proven with
+`opencode acp`; `fs`/`terminal` client capabilities are advertised off.
+
 ## Lanes
 
 - **ACP conversation** (the good one): `devin acp` over piped stdio —
