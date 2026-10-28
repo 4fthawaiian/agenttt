@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "bem",
   "entry": "init.lua",
-  "api": 1,
+  "api": 2,
   "permissions": {
     "panel.sidebar": true,
     "commands": true,
