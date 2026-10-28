@@ -12,7 +12,7 @@ Requires the agent binary on PATH and a TTT build that includes
 
 | Sidebar | Streaming conversation | Right-click menu |
 |---|---|---|
-| ![sidebar](screenshots/sidebar.svg) | ![conversation](screenshots/conversation.svg) | ![context menu](screenshots/context-menu.svg) |
+| ![sidebar](screenshots/sidebar.png) | ![conversation](screenshots/conversation.png) | ![context menu](screenshots/context-menu.png) |
 
 ## Setup
 
