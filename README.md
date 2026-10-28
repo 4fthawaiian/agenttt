@@ -8,6 +8,12 @@ retarget at any ACP-capable CLI via the AGENT table in init.lua.
 Requires the agent binary on PATH and a TTT build that includes
 `ttt.terminal` and `ttt.system`'s `spawn` (post-v1.8.0 main).
 
+## Screenshots
+
+| Sidebar | Streaming conversation | Right-click menu |
+|---|---|---|
+| ![sidebar](screenshots/sidebar.svg) | ![conversation](screenshots/conversation.svg) | ![context menu](screenshots/context-menu.svg) |
+
 ## Setup
 
 ```bash
